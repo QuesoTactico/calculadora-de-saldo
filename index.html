@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sueldo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>CURP</th>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                    <th>Sueldo Diario</th>
+                    <th>Días Trabajados</th>
+                    <th>Subtotal</th>
+                    <th>Bono</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-resultados">
+              
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let curp = prompt("Ingrese CURP (1, 2 o 3)");
+        let nombre = prompt("Favor de ingresar su nombre");
+        let sueldo = parseFloat(prompt("Ingrese su sueldo diario"));
+        let días = parseInt(prompt("Ingrese sus días de trabajo"));
+        
+        let subtotal = sueldo * días;
+        let sueldobono = 0;
+
+        if (días >= 10) {
+            sueldobono = subtotal * 0.30;
+        }
+
+        let total = subtotal + sueldobono;
+        
+        let rutaImagen = "img/default.jpg"; 
+        
+        if (curp === "1" || curp === "2" || curp === "3") {
+            rutaImagen = "img/" + curp + ".jpg";
+        }
+
+        let fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>1</td>
+            <td>${curp}</td>
+            <td><img src="${rutaImagen}" width="80" alt="Foto de ${nombre}"></td>
+            <td>${nombre}</td>
+            <td class="currency">$${sueldo.toFixed(2)}</td>
+            <td>${días}</td>
+            <td class="currency">$${subtotal.toFixed(2)}</td>
+            <td class="currency">$${sueldobono.toFixed(2)}</td>
+            <td class="currency">$${total.toFixed(2)}</td>
+        `;
+        
+        document.getElementById('tabla-resultados').appendChild(fila);
+    </script>
+</body>
+</html>
